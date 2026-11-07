@@ -4,335 +4,229 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
-<title>A secret mission 🌺</title>
-<style id="css">
-:root{box-sizing:border-box;color-scheme:dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
---space:#070b1f;--glass:rgba(12,18,48,.82);--ink:#eef4ff;--muted:#9fb4e6;--lali:#d7193f;--lali2:#ff5c7a;--teal:#19c3e6;--gold:#ff9f43;--line:rgba(120,170,255,.3)}
-html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--space)}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;margin:0}
-body{position:relative;background:var(--space);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;overflow:hidden;overscroll-behavior:none}
-#sky{position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;background-color:var(--space);
-background-image:radial-gradient(60% 40% at 85% 8%,rgba(255,159,67,.30),transparent 70%),radial-gradient(70% 45% at 8% 92%,rgba(25,195,230,.26),transparent 70%),radial-gradient(55% 40% at 50% 48%,rgba(58,91,255,.20),transparent 70%),radial-gradient(1.5px 1.5px at 30px 40px,#fff,transparent),radial-gradient(1px 1px at 120px 90px,#bcd,transparent),radial-gradient(1.5px 1.5px at 190px 160px,#fff,transparent),radial-gradient(1px 1px at 70px 170px,#9cf,transparent);
-background-size:100% 100%,100% 100%,100% 100%,220px 220px,220px 220px,220px 220px,220px 220px}
-.scr{position:absolute;z-index:2;top:0;left:0;right:0;bottom:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;padding:20px 18px;text-align:center}
-.in{margin:auto;width:100%;max-width:440px}
-h1{font-size:27px;line-height:1.2;margin:0 0 10px}
-p{color:var(--muted);line-height:1.5;margin:0 0 18px;font-size:16px}
-.em{font-size:15px;color:var(--gold);font-weight:700;letter-spacing:.5px}
-button,.btn{font:inherit;font-size:18px;font-weight:700;border:0;border-radius:999px;padding:15px 26px;cursor:pointer;text-decoration:none;text-align:center;display:inline-block;touch-action:manipulation;-webkit-appearance:none;color:#fff}
-.yes{background:linear-gradient(135deg,var(--lali),var(--lali2));box-shadow:0 4px 22px rgba(215,25,63,.55);transition:transform .35s}
-.yes.grow{transform:scale(1.25)}
-.no,.alt{background:rgba(120,170,255,.16);border:1px solid var(--line)}
-.row{display:flex;justify-content:center;align-items:center;min-height:96px}
-.row>*{margin:0 8px}
-.eye{width:190px;height:190px;border-radius:50%;position:relative;margin:4px auto 22px;box-shadow:0 0 60px rgba(25,195,230,.55),0 0 120px rgba(255,159,67,.35)}
-.eye i,.eye s{position:absolute;top:0;left:0;right:0;bottom:0;border-radius:50%}
-.eye i{background:conic-gradient(from 0deg,#ff9f43,#d7193f,#3a5bff,#19c3e6,#7be0ff,#ff9f43);animation:spin 14s linear infinite;-webkit-mask:radial-gradient(circle,transparent 0 22%,#000 23%);mask:radial-gradient(circle,transparent 0 22%,#000 23%)}
-.eye s{background:repeating-conic-gradient(rgba(255,255,255,.22) 0 2deg,transparent 2deg 9deg);animation:spin 22s linear infinite reverse;-webkit-mask:radial-gradient(circle,transparent 0 22%,#000 23%);mask:radial-gradient(circle,transparent 0 22%,#000 23%)}
-.eye b{position:absolute;left:36%;top:36%;width:28%;height:28%;border-radius:50%;background:#02030a;box-shadow:0 0 16px #000}
-.eye u{position:absolute;left:44%;top:40%;width:7%;height:7%;border-radius:50%;background:#fff;opacity:.9}
-@keyframes spin{to{transform:rotate(360deg)}}
-.hud{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:16px}
-#stage{position:relative;flex:1;min-height:300px;margin-top:8px}
-.bfly{position:absolute;width:78px;height:58px;padding:0;background:none;border-radius:0;box-shadow:none;transition:left 1.7s ease-in-out,top 1.7s ease-in-out,transform .3s,opacity .3s}
-.bfly svg{width:100%;height:100%;pointer-events:none;animation:flap .4s ease-in-out infinite alternate;filter:drop-shadow(0 0 8px rgba(25,195,230,.7))}
-.bfly.caught{transform:scale(1.7);opacity:0}
-@keyframes flap{from{transform:scaleX(1)}to{transform:scaleX(.5)}}
-.bloom{width:130px;height:130px;margin:0 auto 10px;animation:bloom .9s cubic-bezier(.2,1.4,.4,1)}
-.bloom svg{width:100%;height:100%;filter:drop-shadow(0 0 18px rgba(215,25,63,.7))}
-@keyframes bloom{from{transform:scale(.1) rotate(-90deg);opacity:0}to{transform:none;opacity:1}}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px}
-.planet{border-radius:50%;aspect-ratio:1/1;padding:8px;font-size:15px;line-height:1.2;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 22px rgba(120,170,255,.35),inset -8px -8px 18px rgba(0,0,0,.4)}
-.planet span{font-size:34px;margin-bottom:4px}
-.chip{background:rgba(25,195,230,.10);border:1px solid var(--teal);font-size:15px;border-radius:16px;padding:14px 4px;font-weight:600}
-.pass{border:2px solid transparent;border-radius:22px;padding:18px;text-align:left;background:linear-gradient(var(--glass),var(--glass)) padding-box,linear-gradient(135deg,#00f0a8,#3a5bff,#d7193f) border-box}
-.pass .top{display:flex;align-items:center;justify-content:center;font-weight:800;letter-spacing:1.5px;font-size:15px;margin-bottom:6px}
-.pass .top svg{width:42px;height:42px;margin:0 8px}
-.tr{display:flex;justify-content:space-between;padding:9px 0;border-top:1px dashed var(--line);font-size:16px}
-.tr b{margin-left:14px;text-align:right}
-.warn{margin:14px 0 4px;padding:12px;border-radius:14px;border:1px solid var(--gold);background:rgba(255,159,67,.12);font-weight:700;line-height:1.45;font-size:15px}
-.col{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
-.hint{font-size:13px;color:var(--muted);margin:10px 0 0}
-.conf{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:9;overflow:hidden}
-.conf span{position:absolute;top:-40px;animation:fall linear forwards}
-.conf span.sp{animation:burst .7s ease-out forwards}
-.conf svg{width:100%;height:100%}
-@keyframes fall{to{transform:translateY(112vh) rotate(540deg)}}
-@keyframes burst{to{transform:translate(var(--dx),var(--dy)) scale(.3);opacity:0}}
-.ed{max-width:520px}
-.ed h1{font-size:24px}
-.ed label{display:block;text-align:left;font-size:13px;color:var(--muted);margin:12px 0 4px}
-.ed input,.ed textarea{display:block;width:100%;font:inherit;font-size:16px;padding:10px 12px;border-radius:12px;border:1px solid var(--teal);background:#0d1436;color:var(--ink)}
-.ed textarea{min-height:64px;resize:vertical}
-.ed .box{border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin:14px 0;background:var(--glass);text-align:left}
-.ed .box h2{margin:0 0 4px;font-size:17px}
-.out{word-break:break-all;font-size:14px;color:var(--gold);margin:10px 0 8px;min-height:20px}
-#edmsg{min-height:22px;margin:10px 0;font-weight:700;color:var(--gold)}
-[hidden]{display:none!important}
-</style>
+<meta name="theme-color" content="#070b1f">
+<meta property="og:title" content="A secret mission for you 🌹">
+<meta property="og:description" content="Someone made you something special.">
+<title>A secret mission 🌹</title>
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<div id="skel">
+
+<!-- SVG sprite (inline so it works from file:// too) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
 <defs>
-<radialGradient id="gp" cx="50%" cy="88%" r="95%"><stop offset="0" stop-color="#6b0620"/><stop offset=".45" stop-color="#d7193f"/><stop offset="1" stop-color="#ff5c7a"/></radialGradient>
-<linearGradient id="gw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00f0a8"/><stop offset=".5" stop-color="#19c3e6"/><stop offset="1" stop-color="#3a5bff"/></linearGradient>
-<symbol id="lali" viewBox="0 0 100 100"><g transform="translate(50 50)">
-<ellipse cx="0" cy="-21" rx="16" ry="25" fill="url(#gp)"/><ellipse cx="0" cy="-21" rx="16" ry="25" fill="url(#gp)" transform="rotate(72)"/><ellipse cx="0" cy="-21" rx="16" ry="25" fill="url(#gp)" transform="rotate(144)"/><ellipse cx="0" cy="-21" rx="16" ry="25" fill="url(#gp)" transform="rotate(216)"/><ellipse cx="0" cy="-21" rx="16" ry="25" fill="url(#gp)" transform="rotate(288)"/>
-<circle r="8" fill="#4a0416"/>
-<g stroke="#ffd9a8" stroke-width="1.4" stroke-linecap="round"><line x1="0" y1="0" x2="-9" y2="-26"/><line x1="0" y1="0" x2="-3" y2="-30"/><line x1="0" y1="0" x2="4" y2="-29"/><line x1="0" y1="0" x2="10" y2="-25"/><line x1="0" y1="0" x2="13" y2="-16"/></g>
-<g fill="#ffb347"><circle cx="-9" cy="-26" r="2"/><circle cx="-3" cy="-30" r="2"/><circle cx="4" cy="-29" r="2"/><circle cx="10" cy="-25" r="2"/><circle cx="13" cy="-16" r="2"/></g>
-<g fill="#5c0619"><circle cx="-4" cy="-17" r="1.7"/><circle cx="3" cy="-14" r="1.7"/><circle cx="0" cy="-21" r="1.5"/></g></g></symbol>
+<radialGradient id="gp" cx="50%" cy="88%" r="95%">
+  <stop offset="0" stop-color="#6b0620"/>
+  <stop offset=".45" stop-color="#d7193f"/>
+  <stop offset="1" stop-color="#ff5c7a"/>
+</radialGradient>
+<linearGradient id="gw" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#00f0a8"/>
+  <stop offset=".5" stop-color="#19c3e6"/>
+  <stop offset="1" stop-color="#3a5bff"/>
+</linearGradient>
+
+<symbol id="lali" viewBox="0 0 100 100">
+  <g transform="translate(50 50)">
+    <ellipse cx="0" cy="-21" rx="16" ry="25" fill="url(#gp)"/>
+    <ellipse cx="0" cy="-21" rx="16" ry="25" fill="url(#gp)" transform="rotate(72)"/>
+    <ellipse cx="0" cy="-21" rx="16" ry="25" fill="url(#gp)" transform="rotate(144)"/>
+    <ellipse cx="0" cy="-21" rx="16" ry="25" fill="url(#gp)" transform="rotate(216)"/>
+    <ellipse cx="0" cy="-21" rx="16" ry="25" fill="url(#gp)" transform="rotate(288)"/>
+    <circle r="8" fill="#4a0416"/>
+    <g stroke="#ffd9a8" stroke-width="1.4" stroke-linecap="round">
+      <line x1="0" y1="0" x2="-9" y2="-26"/>
+      <line x1="0" y1="0" x2="-3" y2="-30"/>
+      <line x1="0" y1="0" x2="4" y2="-29"/>
+      <line x1="0" y1="0" x2="10" y2="-25"/>
+      <line x1="0" y1="0" x2="13" y2="-16"/>
+    </g>
+    <g fill="#ffb347">
+      <circle cx="-9" cy="-26" r="2"/><circle cx="-3" cy="-30" r="2"/>
+      <circle cx="4" cy="-29" r="2"/><circle cx="10" cy="-25" r="2"/>
+      <circle cx="13" cy="-16" r="2"/>
+    </g>
+    <g fill="#5c0619">
+      <circle cx="-4" cy="-17" r="1.7"/><circle cx="3" cy="-14" r="1.7"/>
+      <circle cx="0" cy="-21" r="1.5"/>
+    </g>
+  </g>
+</symbol>
+
 <symbol id="bf" viewBox="0 0 120 90">
-<g id="wg"><path d="M60 40C75 10 105 2 116 14C118 30 100 44 62 46Z" fill="#0a0e1c" stroke="#2a4a9a" stroke-width="1"/><path d="M60 46C90 44 112 54 106 72C98 84 76 74 62 56Z" fill="#0a0e1c" stroke="#2a4a9a" stroke-width="1"/>
-<ellipse cx="84" cy="60" rx="17" ry="9" transform="rotate(-18 84 60)" fill="url(#gw)"/>
-<g fill="#19c3e6"><circle cx="98" cy="17" r="2"/><circle cx="106" cy="23" r="2"/><circle cx="90" cy="25" r="1.8"/><circle cx="82" cy="30" r="1.8"/></g>
-<circle cx="101" cy="70" r="2.6" fill="#ff3355"/><circle cx="92" cy="74" r="2.2" fill="#ff3355"/></g>
-<use href="#wg" transform="translate(120 0) scale(-1 1)"/>
-<ellipse cx="60" cy="48" rx="3.2" ry="18" fill="#0a0e1c" stroke="#3a5bff" stroke-width="1"/>
-<path d="M59 31Q50 14 42 10M61 31Q70 14 78 10" stroke="#cfe8ff" stroke-width="1.3" fill="none" stroke-linecap="round"/></symbol>
-</defs></svg>
+  <g id="wg">
+    <path d="M60 40C75 10 105 2 116 14C118 30 100 44 62 46Z" fill="#0a0e1c" stroke="#2a4a9a" stroke-width="1"/>
+    <path d="M60 46C90 44 112 54 106 72C98 84 76 74 62 56Z" fill="#0a0e1c" stroke="#2a4a9a" stroke-width="1"/>
+    <ellipse cx="84" cy="60" rx="17" ry="9" transform="rotate(-18 84 60)" fill="url(#gw)"/>
+    <g fill="#19c3e6">
+      <circle cx="98" cy="17" r="2"/><circle cx="106" cy="23" r="2"/>
+      <circle cx="90" cy="25" r="1.8"/><circle cx="82" cy="30" r="1.8"/>
+    </g>
+    <circle cx="101" cy="70" r="2.6" fill="#ff3355"/>
+    <circle cx="92" cy="74" r="2.2" fill="#ff3355"/>
+  </g>
+  <use href="#wg" transform="translate(120 0) scale(-1 1)"/>
+  <ellipse cx="60" cy="48" rx="3.2" ry="18" fill="#0a0e1c" stroke="#3a5bff" stroke-width="1"/>
+  <path d="M59 31Q50 14 42 10M61 31Q70 14 78 10" stroke="#cfe8ff" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+</symbol>
+</defs>
+</svg>
+
 <div id="sky" aria-hidden="true"></div>
+<div class="hearts" aria-hidden="true">
+  <span>♥</span><span>♥</span><span>♥</span><span>♥</span>
+  <span>♥</span><span>♥</span><span>♥</span><span>♥</span>
+</div>
 <div class="conf" id="conf" aria-hidden="true"></div>
 
-<section class="scr" id="s-intro"><div class="in">
-  <div class="eye" aria-hidden="true"><i></i><s></s><b></b><u></u></div>
-  <div class="em" data-k="introTag"></div>
-  <h1 data-k="introTitle"></h1>
-  <p data-k="introSub"></p>
-  <button class="yes" id="begin" type="button" data-k="beginBtn"></button>
-</div></section>
+<!-- SCREEN 1: INTRO -->
+<section class="scr" id="s-intro" hidden>
+  <div class="in">
+    <div class="eye" aria-hidden="true"><i></i><s></s><b></b><u></u></div>
+    <div class="em" id="ui-introTag"></div>
+    <h1 id="ui-introTitle"></h1>
+    <p id="ui-introSub"></p>
+    <button class="yes" id="begin" type="button"></button>
+  </div>
+</section>
 
+<!-- SCREEN 2: GAME -->
 <section class="scr" id="s-game" hidden>
-  <div class="hud"><span data-k="gameHud"></span><span id="cnt">0 / 5</span></div>
+  <div class="hud"><span id="ui-gameHud"></span><span id="cnt">0 / 5</span></div>
   <div id="stage"></div>
 </section>
 
-<section class="scr" id="s-ask" hidden><div class="in">
-  <div class="bloom"><svg viewBox="0 0 100 100"><use href="#lali"/></svg></div>
-  <div class="em" id="askem" data-k="askTag"></div>
-  <h1 id="q" data-k="question"></h1>
-  <p id="sub" data-k="questionSub"></p>
-  <div class="row"><button class="yes" id="yes" type="button" data-k="yesBtn"></button><button class="no" id="no" type="button">No</button></div>
-</div></section>
-
-<section class="scr" id="s-dest" hidden><div class="in">
-  <div class="em">STEP 1 OF 3</div><h1 data-k="destTitle"></h1><p data-k="destSub"></p>
-  <div class="grid3" id="planets"></div>
-</div></section>
-
-<section class="scr" id="s-day" hidden><div class="in">
-  <div class="em">STEP 2 OF 3</div><h1 data-k="dayTitle"></h1><p data-k="daySub"></p>
-  <div class="grid3" id="days"></div>
-</div></section>
-
-<section class="scr" id="s-time" hidden><div class="in">
-  <div class="em">STEP 3 OF 3</div><h1 data-k="timeTitle"></h1><p data-k="timeSub"></p>
-  <div class="grid3" id="times"></div>
-</div></section>
-
-<section class="scr" id="s-final" hidden><div class="in">
-  <div class="pass">
-    <div class="top"><svg viewBox="0 0 100 100"><use href="#lali"/></svg>BOARDING PASS<svg viewBox="0 0 120 90"><use href="#bf"/></svg></div>
-    <div class="tr"><span>👤 Passenger</span><b id="f-name"></b></div>
-    <div class="tr"><span>📍 Destination</span><b id="f-where"></b></div>
-    <div class="tr"><span>📅 Day</span><b id="f-day"></b></div>
-    <div class="tr"><span>⏰ Time</span><b id="f-time"></b></div>
-    <div class="tr"><span>💳 Boarding fee</span><b>Cash or card</b></div>
-    <div class="warn" data-k="passNote"></div>
+<!-- SCREEN 3: QUESTION -->
+<section class="scr" id="s-ask" hidden>
+  <div class="in">
+    <div class="bloom"><svg viewBox="0 0 100 100"><use href="#lali"/></svg></div>
+    <div class="em" id="ui-askTag"></div>
+    <h1 id="ui-question"></h1>
+    <p id="ui-questionSub"></p>
+    <div class="row" id="ask-row">
+      <button class="yes" id="yes" type="button"></button>
+      <button class="no" id="no" type="button">No</button>
+    </div>
   </div>
-  <p style="margin-top:14px" data-k="passFooter"></p>
-  <div class="col" id="fin"></div>
-  <p class="hint">Tap each button, then press Send in your messages or mail app 😘</p>
-</div></section>
+</section>
 
-<section class="scr" id="s-edit" hidden><div class="in ed">
-  <h1>🛠️ Creator mode</h1>
-  <p>Only you should use this page. Players never see it.</p>
-  <div class="box"><h2>1. Make a link for each person</h2>
-    <label for="lm-share">Paste your Share link</label><input id="lm-share" type="text" placeholder="https://claude.ai/…">
-    <label for="lm-name">Her name</label><input id="lm-name" type="text" placeholder="e.g. Priya">
-    <div class="out" id="lm-out"></div>
-    <div class="row" style="min-height:0"><button class="yes" id="lm-copy" type="button">Copy link</button><button class="alt" id="lm-prev" type="button">Preview</button></div>
+<!-- SCREEN 4: DESTINATION -->
+<section class="scr" id="s-dest" hidden>
+  <div class="in">
+    <div class="em">Step 1 of 3</div>
+    <h1 id="ui-destTitle"></h1>
+    <p id="ui-destSub"></p>
+    <div class="grid3" id="planets"></div>
   </div>
-  <div class="box"><h2>2. Edit the words</h2><div id="edfields"></div>
-    <p class="hint">Use {name} for her name. In the messages you can also use {place}, {day} and {time}.</p>
-    <div id="edmsg" role="status"></div>
-    <button class="yes" id="savebtn" type="button">Save changes 💾</button>
+</section>
+
+<!-- SCREEN 5: DAY -->
+<section class="scr" id="s-day" hidden>
+  <div class="in">
+    <div class="em">Step 2 of 3</div>
+    <h1 id="ui-dayTitle"></h1>
+    <p id="ui-daySub"></p>
+    <div class="grid3" id="days"></div>
+    <button class="alt custom-toggle" id="btn-custom-day" type="button">
+      📅 Pick my own day
+    </button>
+    <div class="custom-picker" id="custom-day" hidden>
+      <input type="date" id="input-day" class="date-input" aria-label="Choose a date">
+      <button class="yes" id="btn-confirm-day" type="button">Confirm day →</button>
   </div>
-</div></section>
-</div>
+</section>
 
-<script id="cfg" type="application/json">{"phone":"0450029991","email":"sanjaysapkota000@gmail.com","defName":"Beautiful","places":"🍝 Fancy dinner, 🎬 Movie night, 🌅 Sunset picnic, ☕ Cosy café, 🔭 Stargazing, ✨ Surprise me","times":"12:00 pm, 1:00 pm, 2:00 pm, 4:00 pm, 5:30 pm, 6:30 pm, 7:00 pm, 8:00 pm, 9:00 pm","t":{"introTag":"TOP SECRET MISSION","introTitle":"{name}, you have eyes like the Crab Nebula 🌌","introSub":"I made you something special. But first, a tiny mission.","beginBtn":"Begin mission 🚀","gameHud":"🦋 Catch 5 Paris Peacocks!","askTag":"SURPRISE UNLOCKED 🌺","question":"{name}, will you go on a date with me? 🥺","questionSub":"I promise I’m cute, funny and (mostly) house-trained.","yesBtn":"Yes 💖","noOops":"Oops, the No button ran away 🏃💨","noOopsSub":"Only Yes works now. Must be fate 😌","destTitle":"Where shall we land? 🚀","destSub":"Choose our destination, captain.","dayTitle":"Which day? 📅","daySub":"Pick a day and I’ll clear my calendar.","timeTitle":"What time? ⏰","timeSub":"I’ll be early. Promise.","passNote":"Please bring cash or card to pay for the date. I worked REALLY hard on this, so you have to look after me now 🥹","passFooter":"Even a Paris Peacock butterfly would stop to stare at you. Can’t wait. 😘","smsText":"I said YES! 💖 It’s {name}. Our date: {place}, {day} at {time}. I’ll bring my card and my best smile. 😘","emailSubject":"Date confirmed 💖 {name}"}}</script>
-<script id="appjs">
-(function(){
-  var $=function(i){return document.getElementById(i)};
-  function el(t,c){var e=document.createElement(t);if(c)e.className=c;return e}
-  function rnd(a,b){return a+Math.random()*(b-a)}
-  var SKEL=$("skel").innerHTML;
-  var HEAD='<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="color-scheme" content="dark"><title>A secret mission 🌺</title>';
-  var cfg=JSON.parse($("cfg").textContent);
-  var ids=["intro","game","ask","dest","day","time","final","edit"];
-  var name="",place="",niceDate="",timeNice="",timer=null;
+<!-- SCREEN 6: TIME -->
+<section class="scr" id="s-time" hidden>
+  <div class="in">
+    <div class="em">Step 3 of 3</div>
+    <h1 id="ui-timeTitle"></h1>
+    <p id="ui-timeSub"></p>
+    <div class="grid3" id="times"></div>
+    <button class="alt custom-toggle" id="btn-custom-time" type="button">
+      ⏰ Pick my own time
+    </button>
+    <div class="custom-picker" id="custom-time" hidden>
+      <input type="time" id="input-time" class="date-input" aria-label="Choose a time">
+      <button class="yes" id="btn-confirm-time" type="button">Confirm time →</button>
+  </div>
+</section>
 
-  function show(id){ids.forEach(function(s){$("s-"+s).hidden=(s!==id)});$("s-"+id).scrollTop=0}
-  function fill(s,x){
-    x=x||{};
-    return String(s||"").replace(/\{(\w+)\}/g,function(m,k){return k==="name"?name:(x[k]!==undefined?x[k]:m)});
-  }
-  function applyText(){
-    var n=document.querySelectorAll("[data-k]");
-    for(var i=0;i<n.length;i++){n[i].textContent=fill(cfg.t[n[i].getAttribute("data-k")])}
-  }
-  function who(){
-    var h="";try{h=decodeURIComponent((location.hash||"").slice(1))}catch(e){h=(location.hash||"").slice(1)}
-    if(h.toLowerCase()==="creator")return null;
-    h=h.replace(/[-_+]+/g," ").replace(/[^A-Za-z0-9\u00C0-\u024F’' ]/g,"").replace(/\s+/g," ").trim().slice(0,30);
-    h=h.replace(/(^|\s)([a-z\u00E0-\u00FF])/g,function(m,a,b){return a+b.toUpperCase()});
-    return h||cfg.defName;
-  }
+<!-- SCREEN 7: FINAL PASS -->
+<section class="scr" id="s-final" hidden>
+  <div class="in">
+    <div class="pass">
+      <div class="top">
+        <svg viewBox="0 0 100 100"><use href="#lali"/></svg>
+        Boarding Pass
+        <svg viewBox="0 0 120 90"><use href="#bf"/></svg>
+      </div>
+      <div class="tr"><span>👤 Passenger</span><b id="f-name"></b></div>
+      <div class="tr"><span>📍 Destination</span><b id="f-where"></b></div>
+      <div class="tr"><span>📅 Day</span><b id="f-day"></b></div>
+      <div class="tr"><span>⏰ Time</span><b id="f-time"></b></div>
+      <div class="tr"><span>💳 Boarding fee</span><b>Cash or card</b></div>
+      <div class="warn" id="ui-passNote"></div>
+    </div>
+    <p style="margin-top:16px" id="ui-passFooter"></p>
 
-  function petals(n){
-    var c=$("conf");
-    for(var i=0;i<n;i++){
-      var s=el("span"),z=rnd(20,36);
-      s.innerHTML='<svg viewBox="0 0 100 100"><use href="#lali"/></svg>';
-      s.style.left=rnd(0,95)+"%";s.style.width=z+"px";s.style.height=z+"px";
-      s.style.animationDuration=rnd(3,6)+"s";s.style.animationDelay=rnd(0,1.2)+"s";c.appendChild(s);
-    }
-    setTimeout(function(){c.textContent=""},8000);
-  }
-  function burst(b){
-    var r=b.getBoundingClientRect(),c=$("conf");
-    for(var i=0;i<8;i++){
-      var s=el("span","sp");s.textContent="✨";s.style.fontSize="22px";
-      s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+r.height/2)+"px";
-      s.style.setProperty("--dx",rnd(-70,70)+"px");s.style.setProperty("--dy",rnd(-70,70)+"px");
-      c.appendChild(s);(function(x){setTimeout(function(){x.remove()},800)})(s);
-    }
-  }
+    <div class="col">
+      <button class="yes" id="action-btn" type="button">Confirm &amp; Send 💌</button>
+    </div>
 
-  // ---- game ----
-  var caught=0;
-  function pos(b){b.style.left=rnd(2,72)+"%";b.style.top=rnd(4,80)+"%"}
-  function startGame(){
-    var st=$("stage");st.textContent="";caught=0;$("cnt").textContent="0 / 5";clearInterval(timer);
-    for(var i=0;i<5;i++){(function(){
-      var b=el("button","bfly"),done=false;b.type="button";b.setAttribute("aria-label","Catch the butterfly");
-      b.innerHTML='<svg viewBox="0 0 120 90"><use href="#bf"/></svg>';
-      pos(b);st.appendChild(b);
-      function hit(e){
-        if(done)return;done=true;if(e&&e.preventDefault)e.preventDefault();
-        b.classList.add("caught");burst(b);caught++;$("cnt").textContent=caught+" / 5";
-        setTimeout(function(){b.remove()},320);
-        if(caught>=5){clearInterval(timer);setTimeout(function(){show("ask");petals(30)},700)}
-      }
-      b.addEventListener("pointerdown",hit);b.addEventListener("click",hit);
-    })()}
-    timer=setInterval(function(){var l=st.querySelectorAll(".bfly");for(var i=0;i<l.length;i++){if(!l[i].classList.contains("caught"))pos(l[i])}},1700);
-  }
-  $("begin").addEventListener("click",function(){show("game");startGame()});
+    <div class="actions">
+      <button class="alt" id="btn-sms" type="button">💬 Text confirmation</button>
+      <button class="alt" id="btn-email" type="button">✉️ Email confirmation</button>
+      <button class="alt" id="btn-copy-details" type="button">📋 Copy details</button>
+      <button class="alt" id="btn-share" type="button">🔗 Share</button>
+    </div>
 
-  // ---- question ----
-  var no=$("no"),yes=$("yes");
-  no.addEventListener("click",function(){
-    no.hidden=true;yes.classList.add("grow");
-    $("q").textContent=fill(cfg.t.noOops);$("sub").textContent=fill(cfg.t.noOopsSub);$("askem").textContent="";
-  });
-  yes.addEventListener("click",function(){petals(24);show("dest")});
+    <p class="hint">Pick whichever is easiest — every option sends the same details 💌</p>
+  </div>
+</section>
 
-  // ---- steps ----
-  var PAL=[["#ff9f43","#b34a00"],["#7a5cff","#2a1a80"],["#ff5c7a","#8a1030"],["#c68a5a","#5a3418"],["#19c3e6","#0a4a8a"],["#e08cff","#5a1a80"],["#3ddc97","#0b5a3a"],["#ffd166","#8a6a10"]];
-  function list(s){return String(s||"").split(",").map(function(x){return x.trim()}).filter(Boolean)}
-  function buildLists(){
-    var P=$("planets"),D=$("days"),T=$("times");P.textContent="";D.textContent="";T.textContent="";
-    list(cfg.places).forEach(function(p,i){
-      var m=p.match(/^(\S+)\s+([\s\S]*)$/),emo="⭐",lab=p;
-      if(m&&/[^\x00-\x7F]/.test(m[1])){emo=m[1];lab=m[2]}
-      var c=PAL[i%PAL.length],b=el("button","planet");b.type="button";
-      b.style.background="radial-gradient(circle at 30% 28%,"+c[0]+","+c[1]+")";
-      var s=el("span");s.textContent=emo;b.appendChild(s);b.appendChild(document.createTextNode(lab));
-      b.addEventListener("click",function(){place=emo+" "+lab;show("day")});P.appendChild(b);
-    });
-    var now=new Date();
-    for(var i=0;i<12;i++){(function(i){
-      var d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i),b=el("button","chip");b.type="button";
-      b.textContent=i===0?"Today":i===1?"Tomorrow":d.toLocaleDateString("en-AU",{weekday:"short",day:"numeric",month:"short"});
-      b.addEventListener("click",function(){niceDate=d.toLocaleDateString("en-AU",{weekday:"long",day:"numeric",month:"long"});show("time")});D.appendChild(b);
-    })(i)}
-    list(cfg.times).forEach(function(t){
-      var b=el("button","chip");b.type="button";b.textContent=t;
-      b.addEventListener("click",function(){timeNice=t;finish()});T.appendChild(b);
-    });
-  }
+<!-- SCREEN 8: CREATOR -->
+<section class="scr" id="s-creator" hidden>
+  <div class="in ed">
+    <h1>🛠️ Creator Dashboard</h1>
+    <p style="text-align:center">Edit the details below, then copy the generated link to send to your date.</p>
 
-  function copy(txt,btn){
-    function ok(){btn.textContent="Copied ✔"}
-    function fb(){try{var t=el("textarea");t.value=txt;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();ok()}catch(e){btn.textContent="Copy failed, screenshot instead 📸"}}
-    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(ok,fb)}else{fb()}
-  }
+    <div class="box">
+      <h2>1. Your Details &amp; Target</h2>
+      <label>Her Name</label>
+      <input type="text" id="ed-name" placeholder="e.g. Priya">
+      <label>Your Name</label>
+      <input type="text" id="ed-sender" placeholder="e.g. Sanjay">
+      <label>Your Phone Number (Receives SMS)</label>
+      <input type="text" id="ed-phone" placeholder="e.g. 0450029991">
+      <label>Your Email (Receives confirmation)</label>
+      <input type="text" id="ed-email" placeholder="e.g. sanjaysapkota000@gmail.com">
+    </div>
 
-  function finish(){
-    $("f-name").textContent=name;$("f-where").textContent=place;$("f-day").textContent=niceDate;$("f-time").textContent=timeNice;
-    var v={place:place,day:niceDate,time:timeNice},sms=fill(cfg.t.smsText,v);
-    var mailBody=sms+"\n\nName: "+name+"\nDate type: "+place+"\nDay: "+niceDate+"\nTime: "+timeNice+"\nBring cash or card 💳";
-    var ph=String(cfg.phone).replace(/[^\d+]/g,"");
-    var f=$("fin");f.textContent="";
-    var a=el("a","btn yes");a.id="text";a.href="sms:"+ph+"?&body="+encodeURIComponent(sms);a.textContent="Text my confirmation 💌";f.appendChild(a);
-    var m=el("a","btn alt");m.id="mail";m.href="mailto:"+cfg.email+"?subject="+encodeURIComponent(fill(cfg.t.emailSubject,v))+"&body="+encodeURIComponent(mailBody);m.textContent="Email my confirmation 📧";f.appendChild(m);
-    var c=el("button","alt");c.type="button";c.id="copy";c.textContent="Copy details 📋";c.addEventListener("click",function(){copy(mailBody,c)});f.appendChild(c);
-    if(navigator.share){var s=el("button","alt");s.type="button";s.textContent="Share instead 📤";s.addEventListener("click",function(){navigator.share({text:sms}).catch(function(){})});f.appendChild(s)}
-    show("final");petals(40);
-  }
+    <div class="box">
+      <h2>2. The Wording</h2>
+      <label>Intro Title</label>
+      <textarea id="ed-title"></textarea>
+      <label>The Big Question</label>
+      <textarea id="ed-question"></textarea>
+      <label>Boarding Pass Warning</label>
+      <textarea id="ed-warning"></textarea>
+    </div>
 
-  // ---- creator mode ----
-  var FIELDS=[["","phone","Phone number that receives her text",1],["","email","Email that receives the confirmation",1],["","defName","Name used when the link has no name",1],["","places","Date places (comma separated, start each with an emoji)",2],["","times","Time options (comma separated)",2],
-  ["t","introTag","Intro: small tag",1],["t","introTitle","Intro: title",2],["t","introSub","Intro: subtitle",2],["t","beginBtn","Intro: button",1],["t","gameHud","Game: instruction",1],["t","askTag","Question: small tag",1],["t","question","Question: main text",2],["t","questionSub","Question: sub text",2],["t","yesBtn","Yes button",1],["t","noOops","After No: headline",1],["t","noOopsSub","After No: sub text",1],["t","destTitle","Places: title",1],["t","destSub","Places: sub text",1],["t","dayTitle","Day: title",1],["t","daySub","Day: sub text",1],["t","timeTitle","Time: title",1],["t","timeSub","Time: sub text",1],["t","passNote","Boarding pass: bring cash or card note",3],["t","passFooter","Boarding pass: footer",2],["t","smsText","Text and email message (uses {name} {place} {day} {time})",3],["t","emailSubject","Email subject",1]];
-  var inputs=[];
-  function slug(s){return String(s).trim().replace(/\s+/g,"-").replace(/[^A-Za-z0-9-]/g,"")}
-  function linkOut(){
-    var base=$("lm-share").value.trim().split("#")[0],s=slug($("lm-name").value);
-    $("lm-out").textContent=s?(base+"#"+s):"Type her name above";
-  }
-  function readForm(){inputs.forEach(function(r){var v=r.n.value.trim();if(r.s)cfg[r.s][r.k]=v;else cfg[r.k]=v})}
-  function build(){
-    var j=JSON.stringify(cfg).replace(/</g,"\\u003c");
-    return "<!DOCTYPE html>\n<html lang=\"en-AU\"><head>"+HEAD+"<style id=\"css\">"+$("css").textContent+"</style></head><body><div id=\"skel\">"+SKEL+"</div><script id=\"cfg\" type=\"application/json\">"+j+"<\/script><script id=\"appjs\">"+$("appjs").textContent+"<\/script></body></html>";
-  }
-  function saveAll(){
-    var msg=$("edmsg");readForm();
-    var p=(window.claude&&window.claude.use)?window.claude.use("artifact"):Promise.resolve(null);
-    p.then(function(art){
-      if(!art){msg.textContent="Can’t save here. Open this page signed in to Claude as the creator.";return}
-      msg.textContent="Saving…";
-      return art.publish(build()).then(function(){msg.textContent="Saved ✔ (the page will reload)"});
-    }).catch(function(e){msg.textContent="Save failed: "+((e&&(e.code||e.message))||e)});
-  }
-  function showEditor(){
-    var box=$("edfields");box.textContent="";inputs=[];
-    FIELDS.forEach(function(f){
-      var id="ed-"+f[1],l=el("label");l.setAttribute("for",id);l.textContent=f[2];
-      var n=f[3]>1?el("textarea"):el("input");n.id=id;if(f[3]>1)n.rows=f[3];
-      n.value=f[0]?cfg[f[0]][f[1]]:cfg[f[1]];box.appendChild(l);box.appendChild(n);inputs.push({s:f[0],k:f[1],n:n});
-    });
-    $("edmsg").textContent="";linkOut();show("edit");
-  }
-  $("lm-share").addEventListener("input",linkOut);$("lm-name").addEventListener("input",linkOut);
-  $("lm-copy").addEventListener("click",function(){linkOut();copy($("lm-out").textContent,$("lm-copy"))});
-  $("lm-prev").addEventListener("click",function(){location.hash=slug($("lm-name").value)||"Preview"});
-  $("savebtn").addEventListener("click",saveAll);
+    <div class="box">
+      <h2>3. Generate &amp; Copy Link</h2>
+      <button class="yes" id="btn-generate" type="button" style="width:100%">Generate Magic Link ✨</button>
+      <div class="out" id="output-link"></div>
+      <button class="alt" id="btn-copy" type="button" style="width:100%; display:none; margin-top:10px;">Copy Link to Clipboard</button>
+    </div>
+  </div>
+</section>
 
-  // ---- routing ----
-  function route(){
-    clearInterval(timer);
-    var n=who();
-    if(n===null){showEditor();return}
-    name=n;applyText();buildLists();no.hidden=false;yes.classList.remove("grow");show("intro");
-  }
-  window.addEventListener("hashchange",route);
-  route();
-})();
-</script>
+<script src="js/utils.js"></script>
+<script src="js/config.js"></script>
+<script src="js/game.js"></script>
+<script src="js/player.js"></script>
+<script src="js/creator.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
