@@ -2,31 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>A Very Important Question...</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Just for you...</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
         :root {
-            --bg-color: #ffe6ea;
-            --text-color: #4a2c31;
-            --primary: #ff4d6d;
-            --primary-hover: #ff758f;
-            --card-bg: #ffffff;
-            --shadow: 0 10px 25px rgba(255, 77, 109, 0.15);
-            --receipt-bg: #fffdfa;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #2a1619;
-                --text-color: #ffe6ea;
-                --primary: #ff4d6d;
-                --primary-hover: #ff758f;
-                --card-bg: #3b1f24;
-                --shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-                --receipt-bg: #2a1c1e;
-            }
+            --bg-base: #05020a;
+            --bg-gradient: radial-gradient(circle at 50% 0%, #2a0b36 0%, #0d0414 50%, #05020a 100%);
+            --text-main: #fff5f8;
+            --text-muted: #d1b8d6;
+            --lali-guras: #ff3366;
+            --crab-nebula: #9d4edd;
+            --peacock-butterfly: #00e5ff;
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
 
         * {
@@ -37,596 +35,667 @@
         }
 
         body {
-            font-family: 'Quicksand', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-gradient);
+            background-color: var(--bg-base);
+            color: var(--text-main);
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             position: relative;
-            transition: background-color 0.3s ease;
         }
 
-        /* Floating Hearts Background */
-        .hearts-container {
+        #cosmic-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
             z-index: 0;
+            overflow: hidden;
         }
-        .heart {
+        .floater {
             position: absolute;
-            bottom: -20px;
-            font-size: 24px;
-            color: var(--primary);
-            opacity: 0.6;
-            animation: floatUp 6s linear infinite;
+            bottom: -40px;
+            animation: floatUp linear forwards;
+            will-change: transform;
         }
         @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-120vh) scale(1.2) rotate(360deg); opacity: 0; }
         }
 
-        /* Main Container */
         #app {
             width: 100%;
-            max-width: 400px;
-            padding: 20px;
+            max-width: 420px;
+            height: 100%;
+            max-height: 100dvh;
+            padding: 24px;
             z-index: 1;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
         }
 
         .screen {
             display: none;
-            background: var(--card-bg);
-            padding: 30px 20px;
-            border-radius: 24px;
-            box-shadow: var(--shadow);
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            padding: 35px 28px;
+            border-radius: 32px;
+            box-shadow: var(--glass-shadow);
             text-align: center;
-            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            width: 100%;
         }
+        .screen.active { display: block; }
 
-        .screen.active {
-            display: block;
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        @keyframes slideUpFade {
+            0% { transform: translateY(30px) scale(0.95); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
         }
 
         h1 {
+            font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
-            margin-bottom: 15px;
-            line-height: 1.3;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff 0%, var(--lali-guras) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
         p {
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            line-height: 1.5;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 28px;
+            font-weight: 400;
         }
 
-        /* Buttons */
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
-            min-height: 150px; /* Prevents layout shift when No disappears */
-            justify-content: center;
-        }
-
-        button {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-            font-size: 1.2rem;
+        .btn {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            padding: 18px 24px;
+            border-radius: 20px;
             border: none;
-            border-radius: 50px;
-            padding: 15px 40px;
+            width: 100%;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 100%;
-            max-width: 250px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            -webkit-appearance: none;
+            letter-spacing: 0.5px;
         }
-
-        .btn-yes {
-            background-color: var(--primary);
+        .btn-primary {
+            background: linear-gradient(135deg, var(--lali-guras) 0%, var(--crab-nebula) 100%);
             color: white;
+            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.4);
+        }
+        .btn-primary:active { transform: scale(0.96); }
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-muted);
+            border: 2px solid rgba(255,255,255,0.1);
         }
 
-        .btn-no {
-            background-color: transparent;
-            color: var(--text-color);
-            border: 2px solid var(--text-color);
-            opacity: 0.7;
-        }
-
-        /* Loading Screen */
-        .progress-bar-container {
-            width: 100%;
-            height: 20px;
-            background: rgba(255, 77, 109, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 20px 0;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: var(--primary);
-            transition: width 0.1s linear;
-        }
-
-        .loading-text {
-            font-weight: 700;
-            color: var(--primary);
-            min-height: 24px;
-        }
-
-        /* Form Elements */
-        .input-group {
-            text-align: left;
-            margin-bottom: 15px;
-        }
-
-        .input-group label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-
-        input[type="date"], input[type="time"], input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px solid rgba(128, 128, 128, 0.3);
-            background: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Quicksand', sans-serif;
-            font-size: 1rem;
-        }
-
-        .menu-options {
+        .btn-container {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .menu-option {
-            padding: 12px;
-            border: 2px solid rgba(128, 128, 128, 0.3);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .menu-option.selected {
-            border-color: var(--primary);
-            background: rgba(255, 77, 109, 0.1);
-        }
-
-        .custom-input {
-            display: none;
-            margin-top: 10px;
-        }
-        .custom-input.active {
-            display: block;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            text-align: left;
-            margin: 20px 0;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-
-        input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            margin-top: 2px;
-            accent-color: var(--primary);
-        }
-
-        /* Receipt Screen */
-        .receipt {
-            background: var(--receipt-bg);
-            border: 2px dashed rgba(128, 128, 128, 0.4);
-            border-radius: 8px;
-            padding: 25px 20px;
-            font-family: 'Courier Prime', monospace;
-            color: var(--text-color);
-            text-align: left;
+            gap: 12px;
             position: relative;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            min-height: 140px;
+            justify-content: flex-start;
+        }
+        #yes-btn { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        #no-btn { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; }
+
+        .terminal {
+            font-family: 'Courier Prime', monospace;
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--peacock-butterfly);
+            padding: 24px;
+            border-radius: 20px;
+            text-align: left;
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            min-height: 160px;
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.05);
+        }
+        .term-line { margin-bottom: 8px; min-height: 22px; }
+        .cursor { animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        .progress-bar {
+            width: 100%; height: 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px; overflow: hidden; margin-top: 20px;
+        }
+        .progress-fill {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, var(--peacock-butterfly), var(--lali-guras));
+            transition: width 0.3s ease;
+            box-shadow: 0 0 15px var(--lali-guras);
+        }
+        .percent-text { font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin-top: 20px; }
+
+        .form-group { text-align: left; margin-bottom: 24px; }
+        .form-group label { display: block; font-weight: 600; font-size: 0.95rem; margin-bottom: 10px; color: var(--text-main); }
+        
+        .menu-grid { display: flex; flex-direction: column; gap: 12px; }
+        .menu-item {
+            padding: 16px 20px; border-radius: 16px;
+            border: 2px solid var(--glass-border);
+            background: rgba(255,255,255,0.02);
+            font-weight: 400; font-size: 1rem;
+            cursor: pointer; transition: all 0.2s ease;
+            display: flex; align-items: center; gap: 12px;
+            color: var(--text-main);
+        }
+        .menu-item.selected {
+            border-color: var(--lali-guras);
+            background: rgba(255, 51, 102, 0.1);
+            box-shadow: 0 4px 20px rgba(255, 51, 102, 0.15);
+            font-weight: 600;
+        }
+        
+        input[type="date"], input[type="time"], input[type="text"] {
+            width: 100%; padding: 16px; border-radius: 16px;
+            border: 2px solid var(--glass-border);
+            background: rgba(0,0,0,0.3);
+            color: var(--text-main);
+            font-size: 16px; /* Prevents iOS zoom */
+            font-family: 'Outfit', sans-serif; font-weight: 600;
+            -webkit-appearance: none; margin-bottom: 12px;
+            transition: border-color 0.3s;
+            color-scheme: dark; /* Fixes iOS native picker colors */
+        }
+        input[type="date"]:focus, input[type="time"]:focus, input[type="text"]:focus {
+            outline: none; border-color: var(--peacock-butterfly);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
         }
 
-        .receipt h2 {
-            text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        #custom-input-container { display: none; margin-top: 12px; }
+        #custom-input-container.active { display: block; animation: slideUpFade 0.3s ease; }
+
+        .checkbox-container {
+            display: flex; align-items: flex-start; gap: 14px;
+            text-align: left; margin: 24px 0; cursor: pointer;
+            background: rgba(157, 78, 221, 0.1); padding: 18px;
+            border-radius: 16px; border: 1px dashed var(--crab-nebula);
+        }
+        .checkbox-container input[type="checkbox"] {
+            width: 24px; height: 24px; margin-top: 2px; accent-color: var(--lali-guras); flex-shrink: 0; border-radius: 6px;
+        }
+        .checkbox-container span { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+        .checkbox-container b { color: var(--text-main); }
+
+        #confirm-btn:disabled { opacity: 0.3; box-shadow: none; cursor: not-allowed; transform: scale(0.98); }
+
+        .receipt-wrapper { 
+            position: relative; margin-bottom: 24px; 
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.6));
+            transform: rotate(-1deg);
+        }
+        
+        .receipt-paper {
+            background-color: #fcfaf8;
+            color: #222;
+            padding: 35px 25px 45px;
+            font-family: 'Courier Prime', monospace; 
+            text-align: left; position: relative;
+            border-radius: 2px;
+            clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 10px), 95% 100%, 90% calc(100% - 10px), 85% 100%, 80% calc(100% - 10px), 75% 100%, 70% calc(100% - 10px), 65% 100%, 60% calc(100% - 10px), 55% 100%, 50% calc(100% - 10px), 45% 100%, 40% calc(100% - 10px), 35% 100%, 30% calc(100% - 10px), 25% 100%, 20% calc(100% - 10px), 15% 100%, 10% calc(100% - 10px), 5% 100%, 0% calc(100% - 10px));
         }
 
-        .receipt-divider {
-            border-top: 1px dashed rgba(128, 128, 128, 0.4);
-            margin: 15px 0;
+        .receipt-header { text-align: center; font-weight: 700; font-size: 1.1rem; margin-bottom: 25px; border-bottom: 2px dashed #888; padding-bottom: 15px; letter-spacing: 1px;}
+        .receipt-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; line-height: 1.4; }
+        .receipt-row span:last-child { text-align: right; max-width: 60%; font-weight: 700; }
+        .receipt-divider { border-top: 2px dashed #888; margin: 18px 0; opacity: 0.4; }
+        
+        .receipt-total { 
+            text-align: center; font-size: 1.3rem; font-weight: 700; 
+            margin-top: 25px; padding: 18px; 
+            border: 3px solid #222; border-radius: 8px; 
+            letter-spacing: 1px;
+        }
+        .receipt-footer { text-align: center; font-size: 0.8rem; margin-top: 25px; opacity: 0.7; font-style: italic; line-height: 1.5; }
+        
+        .barcode {
+            margin-top: 25px; height: 40px; width: 80%; margin-left: 10%;
+            background: repeating-linear-gradient(to right, #222 0, #222 2px, transparent 2px, transparent 4px, #222 4px, #222 5px, transparent 5px, transparent 8px, #222 8px, #222 12px, transparent 12px, transparent 14px);
         }
 
-        .receipt-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
+        .stamp {
+            position: absolute; top: 40%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            border: 4px solid #d93838; color: #d93838;
+            font-size: 2rem; font-weight: 800; font-family: 'Outfit', sans-serif;
+            padding: 5px 20px; border-radius: 8px;
+            opacity: 0.2; pointer-events: none;
+            text-transform: uppercase; letter-spacing: 4px;
         }
 
-        .receipt-total {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-top: 15px;
-            text-align: center;
-            text-transform: uppercase;
+        .btn-sms {
+            background: #fff; color: #000;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+            font-weight: 800;
         }
-
-        /* Edge cutout effect for receipt */
-        .receipt::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            right: 0;
-            height: 10px;
-            background-size: 20px 20px;
-            background-image: linear-gradient(135deg, var(--receipt-bg) 50%, transparent 50%), linear-gradient(225deg, var(--receipt-bg) 50%, transparent 50%);
-            background-position: 0 0;
-        }
-
-        .sms-btn {
-            background-color: #34c759; /* iOS green, universally understood as "send" */
-            color: white;
-        }
-
-        /* Utility */
-        .hidden { display: none !important; }
+        .btn-sms:active { background: #e0e0e0; }
     </style>
 </head>
 <body>
 
-    <div class="hearts-container" id="hearts-container"></div>
+    <div id="cosmic-bg"></div>
 
     <div id="app">
         
-        <!-- SCREEN 1: THE INVITATION -->
+        <!-- SCREEN 1 -->
         <div class="screen active" id="screen-1">
-            <h1>[NAME], will you go on a date with me?</h1>
-            <p>I promise it will be better than your average Tuesday. Remember: [DETAIL] 😉</p>
-            <div class="btn-group" id="btn-group">
-                <button class="btn-yes" id="yes-btn" onclick="startMatch()">YES! 💖</button>
-                <button class="btn-no" id="no-btn">No</button>
+            <h1 id="ui-heading"></h1>
+            <p id="ui-paragraph"></p>
+            <div class="btn-container" id="btn-container">
+                <button class="btn btn-primary" id="yes-btn"></button>
+                <button class="btn btn-secondary" id="no-btn"></button>
             </div>
         </div>
 
-        <!-- SCREEN 2: LOADING -->
+        <!-- SCREEN 2 -->
         <div class="screen" id="screen-2">
-            <h1>Calculating Compatibility...</h1>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progress-bar"></div>
+            <h1 id="ui-loading-title"></h1>
+            <div class="terminal">
+                <div class="term-line" id="t1"></div>
+                <div class="term-line" id="t2"></div>
+                <div class="term-line" id="t3"></div>
+                <div class="term-line" id="t4"></div>
+                <span class="cursor">_</span>
             </div>
-            <div class="loading-text" id="loading-text">0%</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="percent-text" id="percent-text">0%</div>
         </div>
 
-        <!-- SCREEN 3: THE PLANNER -->
+        <!-- SCREEN 3 -->
         <div class="screen" id="screen-3">
-            <h1>Let's Plan This Masterpiece</h1>
+            <h1 id="ui-planner-title"></h1>
+            <p id="ui-planner-subtitle"></p>
             
-            <div class="input-group">
-                <label>1. Pick our vibe (Menu)</label>
-                <div class="menu-options" id="menu-options">
-                    <div class="menu-option" onclick="selectMenu(this, 'Starter (Drinks & Appetizers)')">🥂 Starter: Drinks & Appetizers</div>
-                    <div class="menu-option" onclick="selectMenu(this, 'Main (Dinner & Deep Talks)')">🍝 Main: Dinner & Deep Talks</div>
-                    <div class="menu-option" onclick="selectMenu(this, 'Dessert (Sweet Treats & Strolls)')">🍰 Dessert: Sweet Treats & Strolls</div>
-                    <div class="menu-option" onclick="selectMenu(this, 'Custom')">✨ Custom Idea</div>
+            <div class="form-group">
+                <label id="ui-label-vibe"></label>
+                <div class="menu-grid" id="ui-menu-grid"></div>
+                <div id="custom-input-container">
+                    <input type="text" id="custom-input" placeholder="Type your idea here..." oninput="validateForm()">
                 </div>
-                <input type="text" id="custom-place" class="custom-input" placeholder="Type your custom idea here...">
             </div>
 
-            <div class="input-group">
-                <label>2. Pick a Date</label>
-                <input type="date" id="date-input" min="">
+            <div class="form-group">
+                <label id="ui-label-date"></label>
+                <input type="date" id="date-input" onchange="validateForm()">
+                <input type="time" id="time-input" onchange="validateForm()">
             </div>
 
-            <div class="input-group">
-                <label>3. Pick a Time</label>
-                <input type="time" id="time-input">
-            </div>
-
-            <label class="checkbox-group">
-                <input type="checkbox" id="terms-checkbox">
-                <span>I agree to the terms & conditions: I will let [YOUR NAME] hold my hand, and I promise not to make him do all the talking.</span>
+            <label class="checkbox-container">
+                <input type="checkbox" id="terms-checkbox" onchange="validateForm()">
+                <span id="ui-terms-text"></span>
             </label>
 
-            <button class="btn-yes" id="confirm-btn" disabled onclick="finalizeDate()" style="opacity: 0.5;">Confirm Plan 🚀</button>
+            <button class="btn btn-primary" id="confirm-btn" disabled onclick="finalizeDate()"></button>
         </div>
 
-        <!-- SCREEN 4: THE RECEIPT -->
+        <!-- SCREEN 4 -->
         <div class="screen" id="screen-4">
-            <h1>Date Confirmed!</h1>
+            <h1 id="ui-final-title"></h1>
             
-            <div class="receipt">
-                <h2>*** OFFICIAL DATE RECEIPT ***</h2>
-                <div class="receipt-row">
-                    <span>Client:</span>
-                    <span>[NAME]</span>
+            <div class="receipt-wrapper">
+                <div class="receipt-paper">
+                    <div class="stamp">PAID</div>
+                    <div class="receipt-header" id="ui-receipt-header"></div>
+                    <div class="receipt-row">
+                        <span>Guest:</span>
+                        <span id="ui-receipt-guest"></span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Host:</span>
+                        <span id="ui-receipt-host"></span>
+                    </div>
+                    <div class="receipt-divider"></div>
+                    <div class="receipt-row">
+                        <span>Vibe:</span>
+                        <span id="receipt-vibe">...</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Date:</span>
+                        <span id="receipt-date">...</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Time:</span>
+                        <span id="receipt-time">...</span>
+                    </div>
+                    <div class="receipt-divider"></div>
+                    <div class="receipt-row">
+                        <span>Coding Effort:</span>
+                        <span>PRICELESS</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Website Fees:</span>
+                        <span>$0.00</span>
+                    </div>
+                    
+                    <div class="receipt-total" id="ui-receipt-total"></div>
+                    <div class="receipt-footer" id="ui-receipt-footer"></div>
+                    <div class="barcode"></div>
                 </div>
-                <div class="receipt-row">
-                    <span>Host:</span>
-                    <span>[YOUR NAME]</span>
-                </div>
-                <div class="receipt-divider"></div>
-                <div class="receipt-row">
-                    <span>Vibe:</span>
-                    <span id="receipt-place">...</span>
-                </div>
-                <div class="receipt-row">
-                    <span>Date:</span>
-                    <span id="receipt-date">...</span>
-                </div>
-                <div class="receipt-row">
-                    <span>Time:</span>
-                    <span id="receipt-time">...</span>
-                </div>
-                <div class="receipt-divider"></div>
-                <div class="receipt-row" style="font-size: 0.8rem; margin-top: 15px;">
-                    <span>Custom Website Fee:</span>
-                    <span>$0.00</span>
-                </div>
-                <div class="receipt-row" style="font-size: 0.8rem;">
-                    <span>My Hard Work & Effort:</span>
-                    <span>PRICELESS</span>
-                </div>
-                <div class="receipt-total">
-                    TOTAL DUE: YOUR TREAT 💳
-                </div>
-                <p style="font-size: 0.8rem; text-align: center; margin-top: 15px; margin-bottom: 0;">
-                    *Please bring cash or card. I worked really hard on this website and coding is exhausting. It is your turn to look after me now.
-                </p>
             </div>
 
-            <button class="sms-btn" onclick="sendSMS()">Text [YOUR NAME] my choice 💬</button>
+            <button class="btn btn-sms" id="sms-btn" onclick="processFinalAction()"></button>
         </div>
 
     </div>
 
     <script>
-        // --- Background Hearts ---
-        function createHearts() {
-            const container = document.getElementById('hearts-container');
-            const heartSymbols = ['❤️', '💖', '💘', '💕', '🌸'];
-            setInterval(() => {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-                heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
-                container.appendChild(heart);
-                setTimeout(() => { heart.remove(); }, 7000);
-            }, 400);
-        }
-        createHearts();
+        // Wait for DOM to fully load
+        document.addEventListener('DOMContentLoaded', () => {
 
-        // --- Screen 1: No Button Logic ---
-        const noBtn = document.getElementById('no-btn');
-        const yesBtn = document.getElementById('yes-btn');
-        let dodgeCount = 0;
-        const noMessages = ["Are you sure? 🥺", "Think again!", "Last chance...", "You're breaking my heart 💔"];
-
-        noBtn.addEventListener('click', (e) => {
-            // Shrink the no button
-            const currentScale = 1 - (dodgeCount * 0.2);
-            noBtn.style.transform = `scale(${Math.max(0.3, currentScale)})`;
-            
-            // Grow the yes button
-            const yesScale = 1 + (dodgeCount * 0.3);
-            yesBtn.style.transform = `scale(${yesScale})`;
-
-            // Change text
-            noBtn.innerText = noMessages[dodgeCount % noMessages.length];
-            
-            dodgeCount++;
-
-            // Disappear after 3 clicks
-            if (dodgeCount > 3) {
-                noBtn.style.display = 'none';
-            }
-        });
-
-        // --- Screen Transitions ---
-        function showScreen(screenNumber) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(`screen-${screenNumber}`).classList.add('active');
-        }
-
-        // --- Screen 2: Loading Logic ---
-        function startMatch() {
-            showScreen(2);
-            let progress = 0;
-            const progressBar = document.getElementById('progress-bar');
-            const loadingText = document.getElementById('loading-text');
-            
-            const messages = [
-                "Checking vibes...",
-                "Analyzing smiles...",
-                "Calculating chemistry...",
-                "Factoring in [DETAIL]...",
-                "Is she out of my league? Yes. Proceeding anyway...",
-                "Compatibility locked in!"
-            ];
-
-            const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 8) + 2;
-                if (progress > 100) progress = 100;
+            // ==========================================
+            // ⚙️ CREATOR SETTINGS: EDIT EVERYTHING HERE
+            // ==========================================
+            const CONFIG = {
+                recipientName: "[NAME]",
+                senderName: "[YOUR NAME]",
+                insideJoke: "[DETAIL]",
                 
-                progressBar.style.width = progress + '%';
-                loadingText.innerText = progress + '%';
+                targetPhoneNumber: "+61450029991", // Formatted for international SMS (0450... becomes +61450...)
+                targetEmail: "sanjaysapkota000@gmail.com",
 
-                if (progress > 20) loadingText.innerText = messages[1];
-                if (progress > 40) loadingText.innerText = messages[2];
-                if (progress > 60) loadingText.innerText = messages[3];
-                if (progress > 80) loadingText.innerText = messages[4];
-                
-                if (progress === 100) {
-                    clearInterval(interval);
-                    loadingText.innerText = messages[5];
-                    fireConfetti();
-                    setTimeout(() => showScreen(3), 1500);
-                }
-            }, 150);
-        }
+                heading1: "{name}, I have a very important question...",
+                paragraph1: "Will you let me take you out? I promise it'll be more mesmerizing than the Crab Nebula. And remember: {joke} 😉",
+                btnYes: "YES, I'm in! 💖",
+                btnNo: "No thanks...",
+                noMessages: ["Are you sure? 🥺", "My heart is breaking... 💔", "Think of the {joke}!", "Last chance!"],
 
-        // --- Confetti ---
-        function fireConfetti() {
-            var duration = 3 * 1000;
-            var end = Date.now() + duration;
+                loadingTitle: "Analyzing...",
+                term1: "> Calibrating Lali Guras frequency... [BLOOMING]",
+                term2: "> Scanning for Paris Peacock butterflies... [FOUND]",
+                term3: "> Analyzing the Crab Nebula in your eyes... [BREATHTAKING]",
+                term4: "> Checking compatibility with {joke}... [OFF THE CHARTS]",
 
-            (function frame() {
-                confetti({
-                    particleCount: 5,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: ['#ff4d6d', '#ff758f', '#ffb3c1']
-                });
-                confetti({
-                    particleCount: 5,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: ['#ff4d6d', '#ff758f', '#ffb3c1']
-                });
+                plannerTitle: "You said YES! 🎉",
+                plannerSubtitle: "Let's design our perfect universe.",
+                labelVibe: "1. Pick our vibe",
+                // Note: The last item triggers the custom input box
+                menuOptions: [
+                    { label: "🥂 Starter: Drinks & Sparkles", value: "Starter: Drinks & Sparkles" },
+                    { label: "🍝 Main: Dinner & Deep Talks", value: "Main: Dinner & Deep Talks" },
+                    { label: "🍰 Dessert: Sweet Treats & Stargazing", value: "Dessert: Sweet Treats & Stargazing" },
+                    { label: "✨ Custom: My own wild idea...", value: "custom" }
+                ],
+                labelDate: "2. When are you free?",
+                termsText: "<b>The Fine Print:</b> I solemnly swear to let {sender} hold my hand, to laugh at his terrible jokes, and to accept that I am about to have the best time ever.",
+                btnConfirm: "Lock it in 🔒",
 
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            }());
-        }
-
-        // --- Screen 3: Form Logic ---
-        // Set min date to today
-        document.getElementById('date-input').min = new Date().toISOString().split("T")[0];
-
-        let selectedVibe = "";
-
-        function selectMenu(element, value) {
-            document.querySelectorAll('.menu-option').forEach(el => el.classList.remove('selected'));
-            element.classList.add('selected');
-            
-            const customInput = document.getElementById('custom-place');
-            if (value === 'Custom') {
-                customInput.classList.add('active');
-                selectedVibe = ""; // Wait for input
-            } else {
-                customInput.classList.remove('active');
-                selectedVibe = value;
-            }
-            checkForm();
-        }
-
-        // Enable/disable confirm button based on inputs
-        const dateInput = document.getElementById('date-input');
-        const timeInput = document.getElementById('time-input');
-        const termsBox = document.getElementById('terms-checkbox');
-        const customPlaceInput = document.getElementById('custom-place');
-        const confirmBtn = document.getElementById('confirm-btn');
-
-        function checkForm() {
-            const isDate = dateInput.value !== "";
-            const isTime = timeInput.value !== "";
-            const isTerms = termsBox.checked;
-            let isVibe = false;
-
-            if (selectedVibe === 'Custom') {
-                isVibe = customPlaceInput.value.trim().length > 0;
-            } else {
-                isVibe = selectedVibe !== "";
-            }
-
-            if (isDate && isTime && isTerms && isVibe) {
-                confirmBtn.disabled = false;
-                confirmBtn.style.opacity = '1';
-                confirmBtn.style.transform = 'scale(1)';
-            } else {
-                confirmBtn.disabled = true;
-                confirmBtn.style.opacity = '0.5';
-                confirmBtn.style.transform = 'scale(0.95)';
-            }
-        }
-
-        customPlaceInput.addEventListener('input', checkForm);
-        dateInput.addEventListener('input', checkForm);
-        timeInput.addEventListener('input', checkForm);
-        termsBox.addEventListener('change', checkForm);
-
-        // --- Screen 4: Finalize & Receipt Logic ---
-        let finalData = {
-            place: "",
-            date: "",
-            time: ""
-        };
-
-        function finalizeDate() {
-            // Format the date nicely (e.g., "Friday, Oct 20")
-            const d = new Date(dateInput.value + 'T00:00:00');
-            const options = { weekday: 'long', month: 'short', day: 'numeric' };
-            
-            // Format time nicely (e.g., "7:30 PM")
-            const t = timeInput.value.split(':');
-            const hours = parseInt(t[0]);
-            const minutes = t[1];
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            const displayHours = hours % 12 || 12;
-
-            finalData = {
-                place: selectedVibe === 'Custom' ? customPlaceInput.value : selectedVibe,
-                date: d.toLocaleDateString('en-US', options),
-                time: `${displayHours}:${minutes} ${ampm}`
+                finalTitle: "It's Official! 🌟",
+                receiptHeader: "*** OFFICIAL DATE RECEIPT ***<br>NO REFUNDS. NO EXCHANGES.",
+                receiptTotal: "TOTAL DUE: YOUR TREAT 💳",
+                receiptFooter: "*I spent hours debugging this website while thinking about you. The least you can do is buy me a nice dinner. Look after me now.",
+                btnSMS: "Send {sender} my itinerary 💬",
+                smsMessageText: "I said YES! 🌺🦋 Our date is locked in for {date} at {time} for {vibe}. Bring your wallet, {sender}, because you're paying! 😉"
             };
 
-            // Populate Receipt
-            document.getElementById('receipt-place').innerText = finalData.place;
-            document.getElementById('receipt-date').innerText = finalData.date;
-            document.getElementById('receipt-time').innerText = finalData.time;
+            // --- Text Replacement Utility ---
+            const replaceVars = (text) => {
+                return text
+                    .replace(/{name}/g, CONFIG.recipientName)
+                    .replace(/{sender}/g, CONFIG.senderName)
+                    .replace(/{joke}/g, CONFIG.insideJoke);
+            };
 
-            // Move to receipt screen
-            showScreen(4);
-            
-            // Extra confetti for the receipt
-            fireConfetti();
-        }
+            // --- Apply Config to UI ---
+            document.getElementById('ui-heading').innerHTML = replaceVars(CONFIG.heading1);
+            document.getElementById('ui-paragraph').innerHTML = replaceVars(CONFIG.paragraph1);
+            document.getElementById('yes-btn').innerText = CONFIG.btnYes;
+            document.getElementById('no-btn').innerText = CONFIG.btnNo;
 
-        // --- SMS Button Logic ---
-        function sendSMS() {
-            const phone = ""; // Optional: Put your phone number here with country code, e.g., "+61412345678"
-            const message = `I said YES! 💖 Our date is confirmed for ${finalData.date} at ${finalData.time} for ${finalData.place}. Bring your wallet, [YOUR NAME], because you're paying! 😉`;
-            
-            // Universal link scheme for SMS
-            const smsLink = `sms:${phone}?&body=${encodeURIComponent(message)}`;
-            window.location.href = smsLink;
-        }
+            document.getElementById('ui-loading-title').innerText = CONFIG.loadingTitle;
+            document.getElementById('t1').innerHTML = replaceVars(CONFIG.term1);
+            document.getElementById('t2').innerHTML = replaceVars(CONFIG.term2);
+            document.getElementById('t3').innerHTML = replaceVars(CONFIG.term3);
+            document.getElementById('t4').innerHTML = replaceVars(CONFIG.term4);
+
+            document.getElementById('ui-planner-title').innerText = CONFIG.plannerTitle;
+            document.getElementById('ui-planner-subtitle').innerText = CONFIG.plannerSubtitle;
+            document.getElementById('ui-label-vibe').innerText = CONFIG.labelVibe;
+            document.getElementById('ui-label-date').innerText = CONFIG.labelDate;
+            document.getElementById('ui-terms-text').innerHTML = replaceVars(CONFIG.termsText);
+            document.getElementById('confirm-btn').innerText = CONFIG.btnConfirm;
+
+            document.getElementById('ui-final-title').innerText = CONFIG.finalTitle;
+            document.getElementById('ui-receipt-header').innerHTML = CONFIG.receiptHeader;
+            document.getElementById('ui-receipt-guest').innerText = CONFIG.recipientName;
+            document.getElementById('ui-receipt-host').innerText = CONFIG.senderName;
+            document.getElementById('ui-receipt-total').innerText = CONFIG.receiptTotal;
+            document.getElementById('ui-receipt-footer').innerText = CONFIG.receiptFooter;
+            document.getElementById('sms-btn').innerText = replaceVars(CONFIG.btnSMS);
+
+            // --- Build Menu ---
+            const menuGrid = document.getElementById('ui-menu-grid');
+            CONFIG.menuOptions.forEach(opt => {
+                const div = document.createElement('div');
+                div.className = 'menu-item';
+                div.innerText = opt.label;
+                div.addEventListener('click', function() { selectMenu(this, opt.value); });
+                menuGrid.appendChild(div);
+            });
+
+            // --- Background Engine ---
+            const bgElements = ['🌺', '🦋', '✨', '💖', '🌌', '💫'];
+            function createFloater() {
+                const bg = document.getElementById('cosmic-bg');
+                const floater = document.createElement('div');
+                floater.classList.add('floater');
+                floater.innerText = bgElements[Math.floor(Math.random() * bgElements.length)];
+                
+                const startX = Math.random() * 100;
+                const duration = Math.random() * 4 + 6;
+                const size = Math.random() * 15 + 15;
+
+                floater.style.left = `${startX}vw`;
+                floater.style.fontSize = `${size}px`;
+                floater.style.animationDuration = `${duration}s`;
+
+                bg.appendChild(floater);
+                setTimeout(() => floater.remove(), duration * 1000);
+            }
+            setInterval(createFloater, 500);
+
+            // --- Screen 1: No Button Dodge ---
+            const noBtn = document.getElementById('no-btn');
+            const yesBtn = document.getElementById('yes-btn');
+            let noCount = 0;
+
+            noBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const msgs = CONFIG.noMessages.map(msg => replaceVars(msg));
+                
+                if (noCount < msgs.length) noBtn.innerText = msgs[noCount];
+                
+                const noScale = 1 - (noCount * 0.25);
+                const yesScale = 1 + (noCount * 0.25);
+                
+                const randomX = (Math.random() - 0.5) * 80;
+                const randomY = (Math.random() - 0.5) * 40;
+
+                noBtn.style.transform = `scale(${Math.max(0.1, noScale)}) translate(${randomX}px, ${randomY}px)`;
+                noBtn.style.opacity = Math.max(0, 1 - (noCount * 0.35));
+                yesBtn.style.transform = `scale(${yesScale})`;
+
+                noCount++;
+                if (noCount > 3) {
+                    noBtn.style.display = 'none';
+                    yesBtn.style.marginTop = '0px'; 
+                }
+            });
+
+            // --- Screen 2: Loading Engine ---
+            function typeWriter(element, text, speed, callback) {
+                let i = 0;
+                element.innerHTML = '';
+                function type() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else if (callback) {
+                        callback();
+                    }
+                }
+                type();
+            }
+
+            yesBtn.addEventListener('click', () => {
+                showScreen(2);
+                
+                const t1 = document.getElementById('t1');
+                const t2 = document.getElementById('t2');
+                const t3 = document.getElementById('t3');
+                const t4 = document.getElementById('t4');
+                
+                t1.innerHTML = ''; t2.innerHTML = ''; t3.innerHTML = ''; t4.innerHTML = '';
+
+                typeWriter(t1, replaceVars(CONFIG.term1), 30, () => {
+                    typeWriter(t2, replaceVars(CONFIG.term2), 30, () => {
+                        typeWriter(t3, replaceVars(CONFIG.term3), 30, () => {
+                            typeWriter(t4, replaceVars(CONFIG.term4), 30);
+                        });
+                    });
+                });
+
+                let progress = 0;
+                const progressFill = document.getElementById('progress-fill');
+                const percentText = document.getElementById('percent-text');
+
+                const interval = setInterval(() => {
+                    progress += Math.floor(Math.random() * 5) + 2;
+                    if (progress > 100) progress = 100;
+                    progressFill.style.width = `${progress}%`;
+                    percentText.innerText = `${progress}%`;
+
+                    if (progress === 100) {
+                        clearInterval(interval);
+                        if (typeof confetti === 'function') {
+                            confetti({ particleCount: 50, angle: 60, spread: 60, origin: { x: 0 }, colors: ['#ff3366', '#00e5ff', '#9d4edd'] });
+                            confetti({ particleCount: 50, angle: 120, spread: 60, origin: { x: 1 }, colors: ['#ff3366', '#00e5ff', '#9d4edd'] });
+                        }
+                        setTimeout(() => showScreen(3), 1500);
+                    }
+                }, 150);
+            });
+
+            // --- Screen 3: Form Logic ---
+            document.getElementById('date-input').min = new Date().toISOString().split("T")[0];
+            let selectedVibe = "";
+
+            window.selectMenu = function(element, value) {
+                document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('selected'));
+                element.classList.add('selected');
+                
+                const customContainer = document.getElementById('custom-input-container');
+                if (value === 'custom') {
+                    customContainer.classList.add('active');
+                    selectedVibe = "custom";
+                    document.getElementById('custom-input').focus();
+                } else {
+                    customContainer.classList.remove('active');
+                    selectedVibe = value;
+                }
+                validateForm();
+            };
+
+            window.validateForm = function() {
+                const date = document.getElementById('date-input').value;
+                const time = document.getElementById('time-input').value;
+                const terms = document.getElementById('terms-checkbox').checked;
+                const customText = document.getElementById('custom-input').value.trim();
+                const confirmBtn = document.getElementById('confirm-btn');
+
+                let vibeValid = (selectedVibe === 'custom') ? (customText.length > 0) : (selectedVibe !== "");
+                confirmBtn.disabled = !(date && time && terms && vibeValid);
+            };
+
+            // --- Screen 4: Finalize ---
+            let finalData = { vibe: "", date: "", time: "" };
+
+            window.finalizeDate = function() {
+                const dateObj = new Date(document.getElementById('date-input').value + 'T00:00:00');
+                const dateOptions = { weekday: 'long', month: 'short', day: 'numeric' };
+                
+                const timeVal = document.getElementById('time-input').value;
+                const timeObj = new Date(`1970-01-01T${timeVal}:00`);
+                const timeOptions = { hour: 'numeric', minute: '2-digit' };
+
+                finalData = {
+                    vibe: selectedVibe === 'custom' ? document.getElementById('custom-input').value : selectedVibe,
+                    date: dateObj.toLocaleDateString('en-US', dateOptions),
+                    time: timeObj.toLocaleTimeString('en-US', timeOptions)
+                };
+
+                document.getElementById('receipt-vibe').innerText = finalData.vibe;
+                document.getElementById('receipt-date').innerText = finalData.date;
+                document.getElementById('receipt-time').innerText = finalData.time;
+
+                showScreen(4);
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, colors: ['#ff3366', '#00e5ff', '#9d4edd'] });
+                }
+            };
+
+            // --- Screen 4: Action (Email + SMS) ---
+            window.processFinalAction = function() {
+                // 1. Prepare SMS URL (Universal scheme for iOS & Android)
+                const cleanPhone = CONFIG.targetPhoneNumber.replace(/[^0-9+]/g, '');
+                const messageBody = CONFIG.smsMessageText
+                    .replace(/{date}/g, finalData.date)
+                    .replace(/{time}/g, finalData.time)
+                    .replace(/{vibe}/g, finalData.vibe)
+                    .replace(/{sender}/g, CONFIG.senderName);
+
+                const smsUrl = `sms:${cleanPhone}?&body=${encodeURIComponent(messageBody)}`;
+
+                // 2. Send Email silently via FormSubmit AJAX
+                const emailPayload = {
+                    _subject: `New Date Confirmed with ${CONFIG.recipientName}!`,
+                    Guest_Name: CONFIG.recipientName,
+                    Date: finalData.date,
+                    Time: finalData.time,
+                    Vibe: finalData.vibe,
+                    Sender_Name: CONFIG.senderName
+                };
+
+                fetch(`https://formsubmit.co/ajax/${CONFIG.targetEmail}`, {
+                    method: "POST",
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(emailPayload)
+                }).catch(e => console.log("Email background send failed", e));
+
+                // 3. Trigger SMS redirect immediately to prevent iOS popup blocking
+                window.location.href = smsUrl;
+            };
+
+            // --- Navigation Utility ---
+            function showScreen(screenId) {
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                document.getElementById(`screen-${screenId}`).classList.add('active');
+            }
+        });
     </script>
 </body>
 </html>
